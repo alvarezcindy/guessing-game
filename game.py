@@ -1,7 +1,7 @@
 """A number-guessing game."""
 
 # greet player
-# get playe rname
+# get player name
 # choose random number
 # repeat until number is guessed:
 # if incorrect, give hint, add to guess counter
@@ -14,6 +14,8 @@ human_or_computer = input("You can guess numbers, or the computer can guess. Typ
 
 
 def computer_game_play():
+    """Computer guessing numbers and user responding 'too high' or 'too low'"""
+
     print("Give me a range! Pick a starting number and an ending number.")
     start_num = int(input("Start number >"))
     end_num = int(input("End number >"))
@@ -27,18 +29,19 @@ def computer_game_play():
         print(f"Is the number {random_guess} ?")
         if random_guess > random_number:
             input("> ")
+            # resets range so you can't make a higher guess than previous
             end_num = random_guess - 1
-            print(end_num)
         elif random_guess < random_number:
             input("> ")
+            # resets range so you can't make a lower guess than previous
             start_num = random_guess + 1
-            print(start_num)
         elif random_guess == random_number:
             break
     print("Wow! I guessed the number! Woohoo!")
 
 
 def game_play(score):
+    """User guessing numbers and computer responding 'too high' or 'too low'"""
 
     print("The score is", score)
     print("You get to set your own range. Pick a starting number and an ending number.")
@@ -55,6 +58,7 @@ def game_play(score):
 
     while True:
         while True:
+            # checks for an integer input
             try:
                 user_guess = int(input("Your guess?\n>"))
                 break
@@ -75,14 +79,20 @@ def game_play(score):
             print("Your guess is too low. Try again.")
         counter += 1
 
+    # score conversions based on difficulty/range length
+
     if len(range(start_num, end_num)) <= 50:
         counter = int(counter*2)
     elif len(range(start_num, end_num)) > 100:
         counter = int(counter/2)
 
+    # if new best score is set:
+
     if counter <= score:
         score = counter
         print("Congrats! That's a new best score!")
+
+    # prompting for play again
 
     new_game = input("Do you want to play again (Y/N)?\n>")
     if new_game.upper() == "N":
@@ -92,7 +102,7 @@ def game_play(score):
     else:
         print("That is not a valid answer. Good bye.")
 
-
+# Y if human is guessing, N if computer is guessing
 if human_or_computer.upper() == "Y":
     game_play(best_score)
 elif human_or_computer.upper() == "N":

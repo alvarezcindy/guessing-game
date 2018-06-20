@@ -10,6 +10,32 @@
 import random
 user_name = input("Hi, what's your name?\n>")
 best_score = 100
+human_or_computer = input("You can guess numbers, or the computer can guess. Type 'Y' for you or 'N' computer.\n")
+
+
+def computer_game_play():
+    print("Give me a range! Pick a starting number and an ending number.")
+    start_num = int(input("Start number >"))
+    end_num = int(input("End number >"))
+
+    random_number = random.randint(start_num, end_num)
+
+    print(random_number)
+
+    while True:
+        random_guess = random.randint(start_num, end_num)
+        print(f"Is the number {random_guess} ?")
+        if random_guess > random_number:
+            input("> ")
+            end_num = random_guess - 1
+            print(end_num)
+        elif random_guess < random_number:
+            input("> ")
+            start_num = random_guess + 1
+            print(start_num)
+        elif random_guess == random_number:
+            break
+    print("Wow! I guessed the number! Woohoo!")
 
 
 def game_play(score):
@@ -67,4 +93,9 @@ def game_play(score):
         print("That is not a valid answer. Good bye.")
 
 
-game_play(best_score)
+if human_or_computer.upper() == "Y":
+    game_play(best_score)
+elif human_or_computer.upper() == "N":
+    computer_game_play()
+else:
+    print("Invalid entry. Good bye.")
